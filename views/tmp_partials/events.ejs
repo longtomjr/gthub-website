@@ -1,16 +1,17 @@
 <h3>Events</h3>
 <% events.forEach(event => { %>
-    <p>
-      <b><%= event.name %></b> (<%= event.Track.name %>) <%= event.startdate %> - <%= event.enddate %> [Timezone: <%= event.timezone %>]<br />
-      <ul>
-          <% event.EventSessions.forEach(session => { %>
-          <li>
-              <% let start = moment(session.starttime).tz(timezone) %>
-              <%= session.name %> <i>(<%= session.Series.name %>)</i> <%= start %>
-          </li>
-          <% }); %>
-      </ul>
-    </p>
+<p>
+    <b><%= event.name %></b> (<%= event.Track.name %>) <%= event.startdate %> - <%= event.enddate %> [Timezone:
+    <%= event.timezone %>]<br />
+    <ul>
+        <% event.EventSessions.forEach(session => { %>
+        <li>
+            <% let start = moment(session.starttime).tz(timezone) %>
+            <%= session.name %> <i>(<%= session.Series.name %>)</i> <%= start %>
+        </li>
+        <% }); %>
+    </ul>
+</p>
 <% }); %>
 <form action="/calendar/event/create" method="POST">
     <input aria-label="Name" type="text" name="name" placeholder="Name" required>
@@ -27,7 +28,7 @@
         <% let offset = moment.tz(tz.name).format('Z'); %>
         <% let name = tz_strings[tz.name] %>
         <option value="<%= tz.name %>"> UTC<%= offset %> <%= name %>
-        <% }) %>
+            <% }) %>
         </option>
     </select>
     <br />
@@ -35,7 +36,7 @@
         <option></option>
         <% tracks.forEach(track => { %>
         <option value="<%= track.id %>"> <%= track.name %>
-        <% }) %>
+            <% }) %>
         </option>
     </select>
     <br />

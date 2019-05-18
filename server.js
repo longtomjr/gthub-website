@@ -8,7 +8,7 @@ const MemoryStore		= require('memorystore')(session);
 const moment			= require('moment-timezone');
 const cookieParser 		= require('cookie-parser');
 const util 				= require('./util/util.js');
-
+const cors              = require('cors');
 // loads .env variables
 env.config();
 
@@ -21,6 +21,9 @@ app.set('view engine', 'ejs');
 
 // clear old sessions
 util.clearSessions();
+
+// TODO: Make somehow conditional
+app.use(cors());
 
 // handle authentication
 app.use(session({

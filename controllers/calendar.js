@@ -15,6 +15,40 @@ module.exports.getCalendarWithTimezone = (req, res) => {
 	res.redirect('/calendar');
 };
 
+// module.exports.getEvents = (req, res) => {
+// 	Sequelize.Promise.all([
+// 		db.Event.findAll({
+// 			include: [
+// 				{ model: db.Track },
+// 				{
+// 					model: db.EventSession,
+// 					include: [
+// 						{ model: db.Series }
+// 					]
+// 				}
+// 			],
+// 			order: [
+// 				['startdate', 'ASC'],
+// 				[db.EventSession, 'starttime', 'ASC']
+// 			]
+// 		}),
+// 		db.Series.findAll({
+// 			order: [
+// 				['name', 'ASC']
+// 			]
+// 		}),
+// 		db.Track.findAll({
+// 			order: [
+// 				['name', 'ASC']
+// 			]
+// 		})
+// 	]).spread((events, series, tracks) => {
+// 		res.json(events);
+// 	}, err => {
+// 		util.error(req, res, err);
+// 	});
+// }
+
 function buildCalendar(req, res, timezone) {
 	Sequelize.Promise.all([
 		db.Event.findAll({
@@ -43,7 +77,7 @@ function buildCalendar(req, res, timezone) {
 			]
 		})
 	]).spread((events, series, tracks) => {
-		res.render('calendar.ejs',
+		res.json(
 			{
 				events: events,
 				series: series,
